@@ -10,7 +10,8 @@ This is an easy to use package to send push notification.
 #### Push Service Providers Available:
 
 * GCM
-* FCM
+* FCM HTTP Legacy
+* FCM HTTP v1
 * APN
 
 ## Installation
@@ -112,9 +113,14 @@ For APN Service:
 $push = new PushNotification('apn');
 ```
 
-For FCM Service:
+For FCM Legacy Service:
 ```php
 $push = new PushNotification('fcm');
+```
+
+For FCM HTTP v1 Service:
+```php
+$push = new PushNotification('fcm_http_v1');
 ```
 
 Now you may use any method that you need. Please see the API List.
@@ -342,13 +348,26 @@ $response = $push->setMessage(['message'=>'Hello World'])
             ->sendByTopic('dogs');
 ```
 
+```php
+$push = new PushNotification('fcm_http_v1');
+$response = $push->setMessage(['message'=>'Hello World'])
+            ->setConfig(['dry_run' => false])
+            ->sendByTopic('dogs');
+```
+
 or with a condition:
 ```php
 $push = new PushNotification('fcm');
 $response = $push->setMessage(['message'=>'Hello World'])
             ->setApiKey('YOUR-API-KEY')
             ->setConfig(['dry_run' => false])
-            ->sendByTopic("'dogs' in topics || 'cats' in topics",true);
+            ->sendByTopic("'dogs' in topics || 'cats' in topics", true);
+```
+```php
+$push = new PushNotification('fcm_http_v1');
+$response = $push->setMessage(['message'=>'Hello World'])
+            ->setConfig(['dry_run' => false])
+            ->sendByTopic("'dogs' in topics || 'cats' in topics", true);
 ```
 
 ### Understanding Gcm and Fcm Message Payload
